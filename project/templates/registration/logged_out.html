@@ -1,0 +1,30 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% block branding %}
+    <h1 id="site-name">
+        {% if "/admin" in request.path %}
+            <a href="{% url 'admin:index' %}">{{ site_header|default:_("CRS") }}</a>
+        {% else %}
+            <a href="{% url 'crs:index' %}">{{ site_header|default:_("CRS") }}</a>
+        {% endif %}
+    </h1>
+    {% if user.is_anonymous %}
+        {% include "admin/color_theme_toggle.html" %}
+    {% endif %}
+{% endblock branding %}
+{% block breadcrumbs %}
+{% endblock breadcrumbs %}
+{% block nav-sidebar %}
+{% endblock nav-sidebar %}
+{% block content %}
+    <p>{% translate "You have been successfully logged out." %}</p>
+    {% if "/admin" in request.path %}
+        <p>
+            <a href="{% url 'admin:index' %}">{% translate "Log in again" %}</a>
+        </p>
+    {% else %}
+        <p>
+            <a href="{% url 'crs:index' %}">{% translate "Log in again" %}</a>
+        </p>
+    {% endif %}
+{% endblock content %}

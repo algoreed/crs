@@ -1,0 +1,41 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+{% block title %}
+    {% if subtitle %}{{ subtitle }} |{% endif %}
+    {{ title }} | {{ site_title|default:_("CRS") }}
+{% endblock title %}
+{% block extrahead %}
+    <link rel="shortcut icon"
+          type="image/x-icon"
+          href="{% static 'images/favicon.ico' %}">
+{% endblock extrahead %}
+{% block branding %}
+    <h1 id="site-name">
+        {% if "/admin" in request.path %}
+            <a href="{% url 'admin:index' %}">{{ site_header|default:_("CRS") }}</a>
+        {% else %}
+            <a href="{% url 'crs:index' %}">{{ site_header|default:_("CRS") }}</a>
+        {% endif %}
+    </h1>
+    {% if user.is_anonymous %}
+        {% include "admin/color_theme_toggle.html" %}
+    {% endif %}
+{% endblock branding %}
+{% block userlinks %}
+    {% if user.is_active and user.is_staff %}
+        {% url 'django-admindocs-docroot' as docsroot %}
+        {% if docsroot %}
+            <a href="{{ docsroot }}">{% translate 'Documentation' %}</a> /
+        {% endif %}
+    {% endif %}
+    {% if user.has_usable_password %}
+        <a href="{% url 'admin:password_change' %}">{% translate 'Change password' %}</a> /
+    {% endif %}
+    <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+        {% csrf_token %}
+        <button type="submit">{% translate 'Log out' %}</button>
+    </form>
+    {% include "admin/color_theme_toggle.html" %}
+{% endblock userlinks %}
+{% block nav-global %}
+{% endblock nav-global %}

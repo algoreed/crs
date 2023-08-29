@@ -1,0 +1,52 @@
+# Python artifacts
+*.pyc
+*.pyo
+*.egg-info/
+__pycache__/
+
+# Virtual environment
+venv/
+*.venv/
+virt/
+*.virt/
+ENV/
+
+# SQLite database (if you're using it during development)
+db.sqlite3
+
+# Media files (user-uploaded content; depends on your project's setup)
+media/
+
+# Static files (collected static files; you'd typically generate these in your production setup)
+static/
+collected_static/
+
+# Secret keys, credentials, etc.
+*.env
+secrets.json
+
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# macOS artifacts
+.DS_Store
+
+# Windows artifacts
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux artifacts
+*.swp
+*~
+
+# IDE-specific (e.g., for PyCharm)
+.idea/
+*.iml
+
+# VS Code
+.vscode/

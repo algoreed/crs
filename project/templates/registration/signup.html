@@ -1,0 +1,49 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+{% load widget_tweaks %}
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "admin/css/login.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    {{ form.media }}
+{% endblock %}
+{% block title %}
+    {% trans "Sign Up" %}
+{% endblock title %}
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+{% block usertools %}{% endblock %}
+{% block nav-global %}{% endblock %}
+{% block nav-sidebar %}{% endblock %}
+{% block content_title %}{% endblock %}
+{% block nav-breadcrumbs %}{% endblock %}
+{% block content %}
+    <div id="content-main">
+        <form method="post">
+            {% csrf_token %}
+            <!-- Display form-wide errors -->
+            {% if form.non_field_errors %}<p class="errornote">{{ form.non_field_errors }}</p>{% endif %}
+            <!-- Render the form fields -->
+            {% for field in form %}
+                <div class="form-row">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}<div class="errorlist">{{ field.errors }}</div>{% endif %}
+                </div>
+            {% endfor %}
+            <div class="submit-container">
+                <input type="submit" value="{% translate "Sign up" %}">
+            </div>
+            <div class="submit-container">
+                {% if "/admin" in request.path %}
+                    <p class="login-text">
+                        Already have an account? <a href="{% url "admin:login" %}">Log in here</a>
+                    </p>
+                {% else %}
+                    <p class="login-text">
+                        Already have an account? <a href="{% url "crs:login" %}">Log in here</a>
+                    </p>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+{% endblock content %}
